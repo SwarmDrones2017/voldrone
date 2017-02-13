@@ -158,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
     ArrayList<ARDeviceController> deviceController = new ArrayList<ARDeviceController>();
     Button btest;
     Button bdecolle;
+    Button burgence;
     Button batteri;
     TextView sortie;
     MainActivity objectMain = this;
@@ -212,14 +213,23 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
                 }
             }
         });
-        batteri = (Button) findViewById(R.id.batteri);
-        batteri.setOnClickListener(new View.OnClickListener() {
+        burgence = (Button) findViewById(R.id.burgence);
+        burgence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for(int i = 0;i<deviceController.size();i++){
                     deviceController.get(i).getFeatureARDrone3().sendPilotingEmergency();
                 }
 
+            }
+        });
+        batteri = (Button) findViewById(R.id.batteri);
+        batteri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0;i<deviceController.size();i++){
+                    land(deviceController.get(i));
+                }
             }
         });
 
@@ -299,5 +309,20 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
             }
         }
     }
+    private void land(ARDeviceController deviceController)
+    {
+        ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM flyingState = getPilotingState(deviceController);
+        if (ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_HOVERING.equals(flyingState) ||
+                ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_HOVERING.equals(flyingState))
+        {
+            ARCONTROLLER_ERROR_ENUM error = deviceController.getFeatureARDrone3().sendPilotingLanding();
+
+            if (!error.equals(ARCONTROLLER_ERROR_ENUM.ARCONTROLLER_OK))
+            {
+                ARSALPrint.e(TAG, "Error while sending take off: " + error);
+            }
+        }
+    }
+
 }
 
