@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
             deviceList = mArdiscoveryService.getDeviceServicesArray();
 
             // Do what you want with the device list
+            for (int i = 0; i < deviceList.size(); i++) {
+                sortie.append(deviceList.get(i).getName() + "\n");
+            }
         }
     }
 
@@ -160,6 +163,8 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
     Button bdecolle;
     Button burgence;
     Button batteri;
+    Button bavance;
+    Button bstop;
     TextView sortie;
     MainActivity objectMain = this;
 
@@ -233,6 +238,29 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
             }
         });
 
+        bavance = (Button) findViewById(R.id.bavance);
+        bavance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0;i<deviceController.size();i++){
+                    deviceController.get(i).getFeatureARDrone3().setPilotingPCMDFlag((byte) 1);
+                    deviceController.get(i).getFeatureARDrone3().setPilotingPCMDPitch((byte) 50);
+                }
+
+            }
+        });
+
+        bstop = (Button) findViewById(R.id.bstop);
+        bstop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for(int i = 0;i<deviceController.size();i++){
+                    deviceController.get(i).getFeatureARDrone3().setPilotingPCMDFlag((byte) 1);
+                    deviceController.get(i).getFeatureARDrone3().setPilotingPCMDPitch((byte) 0);
+                }
+            }
+        });
+
         //BebopDrone bebop = new BebopDrone()
 
         ARSDK.loadSDKLibs();
@@ -244,12 +272,16 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
     public void onStateChanged(ARDeviceController deviceController, ARCONTROLLER_DEVICE_STATE_ENUM newState, ARCONTROLLER_ERROR_ENUM error) {
         switch (newState) {
             case ARCONTROLLER_DEVICE_STATE_RUNNING:
+                Log.d(TAG,"Etat : RUNNING");
                 break;
             case ARCONTROLLER_DEVICE_STATE_STOPPED:
+                Log.d(TAG,"Etat : STOPé");
                 break;
             case ARCONTROLLER_DEVICE_STATE_STARTING:
+                Log.d(TAG,"Etat : Commence");
                 break;
             case ARCONTROLLER_DEVICE_STATE_STOPPING:
+                Log.d(TAG,"Etat : Entraint d'être stopé");
                 break;
 
             default:
