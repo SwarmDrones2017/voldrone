@@ -1,4 +1,4 @@
-package com.example.sofiane.testvol;
+package com.example.sofiane.testdrone;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.sofiane.testvol", appContext.getPackageName());
+        assertEquals("com.example.sofiane.testdrone", appContext.getPackageName());
     }
 }
