@@ -11,70 +11,70 @@
     tools:context="com.example.sofiane.testvol.MainActivity">
 
     <Button
-        android:text="test"
+        android:id="@+id/btest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/btest" />
+        android:layout_alignParentTop="true"
+        android:text="test" />
 
     <Button
-        android:text="decolle"
+        android:id="@+id/bdecolle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/btest"
-        android:layout_toEndOf="@+id/btest"
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
-        android:id="@+id/bdecolle" />
+        android:layout_toEndOf="@+id/btest"
+        android:layout_toRightOf="@+id/btest"
+        android:text="decolle" />
 
     <Button
-        android:text="urgence"
+        android:id="@+id/burgence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginLeft="13dp"
         android:layout_marginStart="13dp"
-        android:id="@+id/burgence"
-        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/bdecolle"
         android:layout_toRightOf="@+id/bdecolle"
-        android:layout_toEndOf="@+id/bdecolle" />
+        android:text="urgence" />
 
     <Button
-        android:text="atteri"
+        android:id="@+id/batteri"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/burgence"
         android:layout_alignLeft="@+id/burgence"
         android:layout_alignStart="@+id/burgence"
-        android:id="@+id/batteri" />
+        android:layout_below="@+id/burgence"
+        android:text="atteri" />
 
     <TextView
-        android:text="List : "
+        android:id="@+id/sortie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="109dp"
-        android:id="@+id/sortie"
-        android:layout_below="@+id/batteri"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/batteri"
+        android:layout_marginTop="109dp"
+        android:text="List : " />
 
     <Button
-        android:text="Avance"
+        android:id="@+id/bavance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/batteri"
         android:layout_alignLeft="@+id/batteri"
         android:layout_alignStart="@+id/batteri"
-        android:id="@+id/bavance" />
+        android:layout_below="@+id/batteri"
+        android:text="Avance" />
 
     <Button
-        android:text="stop"
+        android:id="@+id/bstop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/batteri"
         android:layout_toLeftOf="@+id/burgence"
         android:layout_toStartOf="@+id/burgence"
-        android:id="@+id/bstop" />
+        android:text="stop" />
 </RelativeLayout>

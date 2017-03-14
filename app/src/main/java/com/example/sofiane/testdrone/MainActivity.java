@@ -185,13 +185,13 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
                             sortie.append(deviceList.get(i).getName() + "\n");
                         }
                         ArrayList<ARDiscoveryDevice> device = new ArrayList<ARDiscoveryDevice>();
-                        for(int i = 0;i < deviceList.size();i++){
+                        for (int i = 0; i < deviceList.size(); i++) {
                             device.add(createDiscoveryDevice(deviceList.get(i)));
 
                         }
 
                         if (device != null) {
-                            for(int i = 0;i<device.size();i++){
+                            for (int i = 0; i < device.size(); i++) {
                                 deviceController.add(new ARDeviceController(device.get(i)));
                                 deviceController.get(i).addListener(objectMain);
                             }
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
             public void onClick(View v) {
                 //ARCONTROLLER_ERROR_ENUM error = deviceController.start();
                 //deviceController.getFeatureARDrone3().sendPilotingTakeOff();
-                for (int i = 0;i<deviceController.size();i++){
+                for (int i = 0; i < deviceController.size(); i++) {
                     ARCONTROLLER_ERROR_ENUM error = deviceController.get(i).start();
                     getPilotingState(deviceController.get(i));
                     takeoff(deviceController.get(i));
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
         burgence.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0;i<deviceController.size();i++){
+                for (int i = 0; i < deviceController.size(); i++) {
                     deviceController.get(i).getFeatureARDrone3().sendPilotingEmergency();
                 }
 
@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
         batteri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0;i<deviceController.size();i++){
+                for (int i = 0; i < deviceController.size(); i++) {
                     land(deviceController.get(i));
                 }
             }
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
         bavance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0;i<deviceController.size();i++){
+                for (int i = 0; i < deviceController.size(); i++) {
                     deviceController.get(i).getFeatureARDrone3().setPilotingPCMDFlag((byte) 1);
                     deviceController.get(i).getFeatureARDrone3().setPilotingPCMDPitch((byte) 50);
                 }
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
         bstop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i = 0;i<deviceController.size();i++){
+                for (int i = 0; i < deviceController.size(); i++) {
                     deviceController.get(i).getFeatureARDrone3().setPilotingPCMDFlag((byte) 1);
                     deviceController.get(i).getFeatureARDrone3().setPilotingPCMDPitch((byte) 0);
                 }
@@ -272,16 +272,16 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
     public void onStateChanged(ARDeviceController deviceController, ARCONTROLLER_DEVICE_STATE_ENUM newState, ARCONTROLLER_ERROR_ENUM error) {
         switch (newState) {
             case ARCONTROLLER_DEVICE_STATE_RUNNING:
-                Log.d(TAG,"Etat : RUNNING");
+                Log.d(TAG, "Etat : RUNNING");
                 break;
             case ARCONTROLLER_DEVICE_STATE_STOPPED:
-                Log.d(TAG,"Etat : STOPé");
+                Log.d(TAG, "Etat : STOPé");
                 break;
             case ARCONTROLLER_DEVICE_STATE_STARTING:
-                Log.d(TAG,"Etat : Commence");
+                Log.d(TAG, "Etat : Commence");
                 break;
             case ARCONTROLLER_DEVICE_STATE_STOPPING:
-                Log.d(TAG,"Etat : Entraint d'être stopé");
+                Log.d(TAG, "Etat : Entraint d'être stopé");
                 break;
 
             default:
@@ -341,16 +341,14 @@ public class MainActivity extends AppCompatActivity implements ARDeviceControlle
             }
         }
     }
-    private void land(ARDeviceController deviceController)
-    {
+
+    private void land(ARDeviceController deviceController) {
         ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM flyingState = getPilotingState(deviceController);
         if (ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_HOVERING.equals(flyingState) ||
-                ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_HOVERING.equals(flyingState))
-        {
+                ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_ENUM.ARCOMMANDS_ARDRONE3_PILOTINGSTATE_FLYINGSTATECHANGED_STATE_HOVERING.equals(flyingState)) {
             ARCONTROLLER_ERROR_ENUM error = deviceController.getFeatureARDrone3().sendPilotingLanding();
 
-            if (!error.equals(ARCONTROLLER_ERROR_ENUM.ARCONTROLLER_OK))
-            {
+            if (!error.equals(ARCONTROLLER_ERROR_ENUM.ARCONTROLLER_OK)) {
                 ARSALPrint.e(TAG, "Error while sending take off: " + error);
             }
         }
